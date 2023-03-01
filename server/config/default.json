@@ -1,5 +1,5 @@
 {
-  "serverPort": 3000,
+  "serverPort": 4000,
   "dbUrl": "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",
   "secretKey": "cloud-server"
 }
