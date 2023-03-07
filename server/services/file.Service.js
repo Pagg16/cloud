@@ -9,7 +9,7 @@ class FileService {
       try {
         if (!fs.existsSync(filePath)) {
           fs.mkdirSync(filePath);
-          fs.mkdirSync(filePath + `\\${file.path}`);
+          if (file.path.length > 0) fs.mkdirSync(filePath + `\\${file.path}`);
 
           return resolve({ message: "File was created" });
         } else {
@@ -25,6 +25,19 @@ class FileService {
         return reject({ message: "File error" });
       }
     });
+  }
+
+  getPath(file) {
+    return config.get("filePath") + "\\" + file.user + "\\" + file.path;
+  }
+
+  deleteFile(file) {
+    const path = this.getPath(file);
+    if (file.type === "dir") {
+      fs.rmdirSync(path);
+    } else {
+      fs.unlinkSync(path);
+    }
   }
 }
 
