@@ -6,18 +6,27 @@ import {
   showUploader,
 } from "../reduser/uploadReduser";
 
-export function getFiles(dirId) {
+export function getFiles(dirId, sort) {
   const token = localStorage.getItem("token");
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/api/files${dirId ? "?parent=" + dirId : ""}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let url = "http://localhost:4000/api/files";
+
+      if (dirId) {
+        url = `http://localhost:4000/api/files?parent=${dirId}`;
+      }
+      if (sort) {
+        url = `http://localhost:4000/api/files?sort=${sort}`;
+      }
+
+      if (dirId && sort) {
+        url = `http://localhost:4000/api/files?parent=${dirId}&sort=${sort}`;
+      }
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(setFiles(response.data));
     } catch (e) {
       alert(e.response.data.message);

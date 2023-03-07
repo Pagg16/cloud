@@ -12,10 +12,11 @@ const Disk = () => {
   const currentDir = useSelector((state) => state.files.currentDir);
   const dirStack = useSelector((state) => state.files.dirStack);
   const [dragEnter, setDragEnter] = useState();
+  const [sort, setSort] = useState("none");
 
   useEffect(() => {
-    dispatch(getFiles(currentDir));
-  }, [currentDir]);
+    dispatch(getFiles(currentDir, sort));
+  }, [currentDir, sort]);
 
   function showPopupCreated() {
     dispatch(setPopupFile(true));
@@ -81,6 +82,16 @@ const Disk = () => {
             className="disk__upload-input"
           />
         </div>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          className="disk__select"
+        >
+          <option value="name">По имени</option>
+          <option value="type">По типу</option>
+          <option value="date">По дате</option>
+          <option value="none">Без сортировки</option>
+        </select>
       </div>
       <FileList />
       <Popup />
