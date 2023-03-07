@@ -1,5 +1,10 @@
 import axios from "axios";
 import { addFile, deleteFileAction, setFiles } from "../reduser/fileReduser";
+import {
+  addUploadFile,
+  changeUploadFile,
+  showUploader,
+} from "../reduser/uploadReduser";
 
 export function getFiles(dirId) {
   const token = localStorage.getItem("token");
@@ -51,6 +56,9 @@ export function uploadFile(dirId, file) {
       if (dirId) {
         formData.append("parent", dirId);
       }
+      const uploadFile = { name: file.name, progress: 0, id: Date.now() };
+      dispatch(showUploader());
+      dispatch(addUploadFile(file));
       const response = await axios.post(
         `http://localhost:4000/api/files/upload`,
         formData,
@@ -62,9 +70,10 @@ export function uploadFile(dirId, file) {
               : false;
 
             if (totalLength) {
-              let progress = Math.round(
+              uploadFile.progress = Math.round(
                 (progressEvent.loaded * 100) / totalLength
               );
+              dispatch(changeUploadFile(uploadFile));
             }
           },
         }
