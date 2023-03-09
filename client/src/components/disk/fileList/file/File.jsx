@@ -19,12 +19,12 @@ const File = ({ file }) => {
   }
 
   function downloadClickHandler(e) {
-    e.stopPropagination();
+    e.stopPropagation();
     downloadfile(file);
   }
 
   function deleteClickHandler(e) {
-    e.stopPropagination();
+    e.stopPropagation();
     dispatch(deleteFile(file));
   }
 
@@ -40,7 +40,7 @@ const File = ({ file }) => {
       <div className="file__size">{sizeFormat(file.size)}</div>
       {file.type !== "dir" && (
         <button
-          onClick={() => downloadClickHandler()}
+          onClick={(e) => downloadClickHandler(e)}
           className="file__btn file__download"
         >
           download

@@ -11,6 +11,7 @@ const Disk = () => {
   const dispatch = useDispatch();
   const currentDir = useSelector((state) => state.files.currentDir);
   const dirStack = useSelector((state) => state.files.dirStack);
+  const loader = useSelector((state) => state.app.loader);
   const [dragEnter, setDragEnter] = useState();
   const [sort, setSort] = useState("none");
 
@@ -31,7 +32,6 @@ const Disk = () => {
     event.preventDefault();
     event.stopPropagation();
     const files = [...event.target.files];
-    console.log(files);
     files.forEach((file) => dispatch(uploadFile(currentDir, file)));
   }
 
@@ -51,9 +51,16 @@ const Disk = () => {
     event.preventDefault();
     event.stopPropagation();
     const files = [...event.dataTransfer.files];
-    console.log(files);
     files.forEach((file) => dispatch(uploadFile(currentDir, file)));
     setDragEnter(false);
+  }
+
+  if (loader) {
+    return (
+      <div className="loader">
+        <div className="lds-dual-ring"></div>
+      </div>
+    );
   }
 
   return !dragEnter ? (

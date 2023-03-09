@@ -126,14 +126,9 @@ class FileController {
   async downloadFile(req, res) {
     try {
       const file = await File.findOne({ _id: req.query.id, user: req.user.id });
+
       const path =
-        config.get("filePath") +
-        "\\" +
-        req.user.id +
-        "\\" +
-        file.path +
-        "\\" +
-        file.name;
+        config.get("filePath") + "\\" + req.user.id + "\\" + file.path;
 
       if (fs.existsSync(path)) {
         return res.download(path, file.name);
@@ -153,11 +148,23 @@ class FileController {
         return res.status(400).json({ message: "file not found" });
       }
       fileService.deleteFile(file);
-      await file.remove();
+      File.deleteOne({ _id: req.query.id, user: req.user.id });
       return res.json({ message: "File was deleted" });
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: "Dir is not empty" });
+    }
+  }
+
+  async searchFile(req, res) {
+    try {
+      const searchName = req.query.search;
+      let files = await File.find({ user: req.user.id });
+      files = files.filter((file) => file.name.includes(searchName));
+      return res.json(files);
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Search error" });
     }
   }
 }

@@ -23,18 +23,15 @@ export default function uploadReducer(state = defaultState, action) {
     case REMOVEUPLOADER:
       return {
         ...state,
-        files: [
-          ...state.files,
-          { ...action.files((file) => file.id !== action.payload) },
-        ],
+        files: [...state.files.filter((file) => file.id !== action.payload)],
       };
     case CHANGEUPLOADFILE:
       return {
-        ...state.files,
+        ...state,
         files: [
           ...state.files.map((file) =>
-            file.id == action.payload
-              ? { ...file, process: action.payload.process }
+            file.id === action.payload.id
+              ? { ...file, progress: action.payload.progress }
               : { ...file }
           ),
         ],

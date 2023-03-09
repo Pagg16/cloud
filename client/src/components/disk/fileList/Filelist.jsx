@@ -8,6 +8,10 @@ import "./filelist.less";
 const FileList = () => {
   const files = useSelector((state) => state.files.files);
 
+  if (files.lenght === 0) {
+    return <div className="no-file">Файлы не найдены</div>;
+  }
+
   return (
     <div className="filelist">
       <div className="filelist__header">
@@ -23,7 +27,7 @@ const FileList = () => {
             classNames={"file"}
             exit={false}
           >
-            <File file={file} key={file._id} />;
+            <File file={file} />
           </CSSTransition>
         ))}
       </TransitionGroup>

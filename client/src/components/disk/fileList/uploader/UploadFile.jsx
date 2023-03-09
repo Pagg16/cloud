@@ -8,8 +8,8 @@ const UploadFile = ({ file }) => {
   const uploadBar = useRef("");
 
   useEffect(() => {
-    uploadBar.current.width = file.progress + "%";
-  }, []);
+    uploadBar.current.style.width = file.progress + "%";
+  }, [file]);
 
   return (
     <div className="upload-file">

@@ -12,10 +12,12 @@ const Registration = () => {
   const navigate = useNavigate();
 
   function registrationHandler() {
-    registration(email, password).then(() => {
-      dispatch(autorization(email, password)).then(() => {
-        navigate("/", { replace: true });
-      });
+    registration(email, password).then((isOk) => {
+      if (isOk) {
+        // dispatch(autorization(email, password)).then(() => {
+        //   navigate("/", { replace: true });
+        // });
+      }
     });
   }
 

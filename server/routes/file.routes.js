@@ -6,7 +6,8 @@ const fileController = require("../controllers/file.Controller");
 router.post("", authMiddleware, fileController.createDir);
 router.post("/upload", authMiddleware, fileController.uploadFile);
 router.get("", authMiddleware, fileController.getFiles);
-router.post("/download", authMiddleware, fileController.downloadFile);
-router.post("/delete", authMiddleware, fileController.deleteFile);
+router.get("/download", authMiddleware, fileController.downloadFile);
+router.delete("/delete", authMiddleware, fileController.deleteFile);
+router.get("/search", authMiddleware, fileController.searchFile);
 
 module.exports = router;

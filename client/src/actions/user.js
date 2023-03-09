@@ -11,8 +11,10 @@ export const registration = async (email, password) => {
       }
     );
     alert(response.data.message);
+    return true;
   } catch (e) {
     alert(e.response ? e.response.data.message : "Error server connect");
+    return false;
   }
 };
 

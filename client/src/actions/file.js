@@ -1,8 +1,10 @@
 import axios from "axios";
+import { hideLoader, showLoader } from "../reduser/appReduser";
 import { addFile, deleteFileAction, setFiles } from "../reduser/fileReduser";
 import {
   addUploadFile,
   changeUploadFile,
+  hideUploader,
   showUploader,
 } from "../reduser/uploadReduser";
 
@@ -10,6 +12,7 @@ export function getFiles(dirId, sort) {
   const token = localStorage.getItem("token");
   return async (dispatch) => {
     try {
+      dispatch(showLoader());
       let url = "http://localhost:4000/api/files";
 
       if (dirId) {
@@ -30,6 +33,8 @@ export function getFiles(dirId, sort) {
       dispatch(setFiles(response.data));
     } catch (e) {
       alert(e.response.data.message);
+    } finally {
+      dispatch(hideLoader());
     }
   };
 }
@@ -66,8 +71,8 @@ export function uploadFile(dirId, file) {
         formData.append("parent", dirId);
       }
       const uploadFile = { name: file.name, progress: 0, id: Date.now() };
-      dispatch(showUploader());
-      dispatch(addUploadFile(file));
+      await dispatch(addUploadFile(uploadFile));
+      await dispatch(showUploader());
       const response = await axios.post(
         `http://localhost:4000/api/files/upload`,
         formData,
@@ -91,6 +96,8 @@ export function uploadFile(dirId, file) {
     } catch (e) {
       console.log(e);
       alert(e.response.data.message);
+    } finally {
+      dispatch(hideUploader());
     }
   };
 }
@@ -98,23 +105,25 @@ export function uploadFile(dirId, file) {
 export async function downloadfile(file) {
   const token = localStorage.getItem("token");
   const response = await fetch(
-    `http://localhost:4000/api/files/download?=id${file._id}`,
+    `http://localhost:4000/api/files/download?id=${file._id}`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
 
   if (response.status === 200) {
     const blob = await response.blob();
-    const downloadUrl = window.URL.createObjectURL(blob);
+    const downloadUrl = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.herf = downloadUrl;
+    link.setAttribute("href", downloadUrl);
     link.download = file.name;
-    document.body.appendChild(link);
+    document.body.append(link);
     link.click();
     link.remove();
+  } else {
+    alert("Error download");
   }
 }
 
-export async function deleteFile(file) {
+export function deleteFile(file) {
   const token = localStorage.getItem("token");
   return async (dispatch) => {
     try {
@@ -124,6 +133,23 @@ export async function deleteFile(file) {
       );
       dispatch(deleteFileAction(file._id));
       alert(response.data.message);
-    } catch (e) {}
+    } catch (e) {
+      alert("Error delete");
+    }
+  };
+}
+
+export function searchFile(search) {
+  const token = localStorage.getItem("token");
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/files/search?search=${search}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(setFiles(response.data));
+    } catch (e) {
+      alert("Error search");
+    }
   };
 }
