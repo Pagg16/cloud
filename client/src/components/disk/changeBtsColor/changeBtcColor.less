@@ -1,0 +1,41 @@
+@import "../../../utils/color.less";
+
+.changeBtsColor {
+  display: flex;
+  align-items: center;
+  border: 1px solid @font-color;
+  font-weight: bold;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 2px;
+  border-radius: 20px;
+  cursor: pointer;
+  &__svg-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0 5px 0;
+  }
+  &__arrow-right {
+    width: 50px;
+  }
+  &__current-color {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(black 50%, white 50%);
+    border-radius: 50%;
+    border: 2px solid rgb(179, 179, 179);
+    transform: rotate(90deg);
+    transition: transform 0.3s linear;
+  }
+  &__current-color_rotate {
+    transform: rotate(270deg);
+    transition: transform 0.3s linear;
+  }
+}
+
+.svg-icon-arrow {
+  height: auto;
+  width: 10px;
+}

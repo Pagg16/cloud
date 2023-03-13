@@ -14,32 +14,34 @@ const Registration = () => {
   function registrationHandler() {
     registration(email, password).then((isOk) => {
       if (isOk) {
-        // dispatch(autorization(email, password)).then(() => {
-        //   navigate("/", { replace: true });
-        // });
+        dispatch(autorization(email, password)).then(() => {
+          navigate("/", { replace: true });
+        });
       }
     });
   }
 
   return (
     <div className="registration">
-      <div className="registration__header">Регистрация</div>
-      <Input
-        setValue={setEmail}
-        value={email}
-        type="text"
-        placeholder="Введите email"
-      />
-      <Input
-        setValue={setPassword}
-        value={password}
-        type="password"
-        placeholder="Введите пароль"
-      />
+      <div className="registration__container">
+        <div className="registration__header">Регистрация</div>
+        <Input
+          setValue={setEmail}
+          value={email}
+          type="text"
+          placeholder="Введите email"
+        />
+        <Input
+          setValue={setPassword}
+          value={password}
+          type="password"
+          placeholder="Введите пароль"
+        />
 
-      <button onClick={registrationHandler} className="registration__btn">
-        Регистрация
-      </button>
+        <button onClick={registrationHandler} className="registration__btn">
+          Регистрация
+        </button>
+      </div>
     </div>
   );
 };

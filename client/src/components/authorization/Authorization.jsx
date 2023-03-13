@@ -18,26 +18,28 @@ const Authorization = () => {
 
   return (
     <div className="authorization">
-      <div className="authorization__header">Авторизация</div>
-      <Input
-        setValue={setEmail}
-        value={email}
-        type="text"
-        placeholder="Введите email"
-      />
-      <Input
-        setValue={setPassword}
-        value={password}
-        type="password"
-        placeholder="Введите пароль"
-      />
+      <div className="authorization__container">
+        <div className="authorization__header">Авторизация</div>
+        <Input
+          setValue={setEmail}
+          value={email}
+          type="email"
+          placeholder="Введите email"
+        />
+        <Input
+          setValue={setPassword}
+          value={password}
+          type="password"
+          placeholder="Введите пароль"
+        />
 
-      <button
-        onClick={() => autorizationHandler()}
-        className="authorization__btn"
-      >
-        Войти
-      </button>
+        <button
+          onClick={() => autorizationHandler()}
+          className="authorization__btn"
+        >
+          Войти
+        </button>
+      </div>
     </div>
   );
 };

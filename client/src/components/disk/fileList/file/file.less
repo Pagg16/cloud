@@ -4,15 +4,34 @@
   margin: 10px 0;
   border-bottom: solid 2px @font-color;
   display: grid;
-  grid-template-columns: 1fr 4fr repeat(4, 1fr);
+  grid-template-columns: 1fr auto repeat(4, 1fr);
   align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: scale(1.02);
   }
 
+  &__name {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__download-icon {
+    height: 40px;
+    justify-self: center;
+  }
+
+  &__delete-icon {
+    height: 40px;
+    display: none;
+    justify-self: center;
+  }
+
   &__img {
     justify-self: center;
+    height: 100px;
+    width: 100px;
   }
 
   &__date {
@@ -26,7 +45,24 @@
   }
 
   &__btn {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
     display: none;
+  }
+
+  &__delete {
+    border: 2px solid @font-color;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-left: 5px;
   }
 
   &:hover &__date {
@@ -45,5 +81,61 @@
   &:hover &__delete {
     grid-column-start: 6;
     display: block;
+  }
+  @media screen and (max-width: 890px) {
+    &__date,
+    &__size {
+      display: none;
+    }
+    &:hover &__download {
+      display: none;
+    }
+    &:hover &__delete {
+      display: none;
+    }
+    &_width-visible {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    &__delete-icon {
+      display: flex;
+      grid-column-start: 6;
+      grid-row-start: 1;
+      padding: 5px;
+    }
+
+    &__download {
+      grid-column-start: 5;
+      grid-row-start: 1;
+      display: flex;
+      padding: 5px;
+    }
+  }
+}
+
+.file-plate {
+  width: 150px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__img {
+    height: 100px;
+    width: 100px;
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  &__download-icon {
+    width: 35px;
+  }
+
+  &__name {
+    white-space: nowrap;
+    overflow: hidden;
   }
 }

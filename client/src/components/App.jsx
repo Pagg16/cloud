@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "./navbar/Navbar";
 import {
   Route,
@@ -8,6 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./app.less";
+import "../utils/theme.less";
 import Registration from "./registration/Registration";
 import Authorization from "./authorization/Authorization";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
@@ -17,6 +18,7 @@ import Disk from "./disk/Disk";
 
 function App() {
   const isAuth = useSelector((state) => state.user.isAuth);
+  const theme = useSelector((state) => state.app.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,9 +27,13 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div
+      className={`app ${
+        theme === "dark" ? "theme-background" : "theme-background-white"
+      }`}
+    >
       <Navbar />
-      <div className="wrap">
+      <div className="main">
         <Routes>
           <Route
             path="/"

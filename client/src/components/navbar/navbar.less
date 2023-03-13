@@ -3,33 +3,111 @@
 .navbar {
   display: flex;
   justify-content: center;
-  height: 50px;
+  align-items: center;
   background-color: white;
   width: 100%;
 
+  &__container {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1140px;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  &__search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__search {
+    border: none;
+    border-bottom: @font-color solid 3px;
+    background: transparent;
+    width: 100%;
+    padding: 3px;
+    &:focus {
+      outline: none;
+      transform: scale(1.01);
+    }
+  }
+
+  &__btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__search-icon {
+    height: 55px;
+  }
+
   &__header {
     margin-left: 10px;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
+    color: #bfe5fc;
+    -webkit-text-stroke: 0.8px #000000;
   }
 
   &__login {
-    margin-left: auto;
     margin-right: 20px;
   }
 
   &__exit {
-    margin-left: auto;
+    font-weight: bold;
   }
 
   &__search {
     width: 200px;
-    margin-left: 30px;
+    margin-left: 10px;
+    margin-top: 15px;
   }
-}
 
-.container {
-  width: 1140px;
-  display: flex;
-  align-items: center;
+  &__logo {
+    height: 50px;
+  }
+
+  &__setting-bts {
+    background: transparent;
+    border-radius: 20px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__setting-bts-icon {
+    width: 40px;
+  }
+
+  @media screen and (max-width: 550px) {
+    &__header {
+      display: none;
+    }
+    &__search-icon {
+      height: 35px;
+    }
+    &__search {
+      width: 150px;
+      margin-left: 5px;
+      margin-top: 0px;
+    }
+  }
 }

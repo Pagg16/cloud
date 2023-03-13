@@ -1,0 +1,53 @@
+@import "../../utils/color.less";
+
+.setPopup {
+  width: 90vw;
+  height: 100vh;
+  background-color: #566885;
+  position: absolute;
+  top: 0;
+  right: -90vw;
+  transition: transform 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &_visible {
+    display: flex;
+    transform: translateX(-90vw);
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgb(161, 161, 161);
+    height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+  }
+
+  &__exit-button {
+    background-color: rgb(168, 18, 18);
+    padding: 1px 5px 3px;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+
+  &__search-container {
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  &__close-icon {
+    width: 40px;
+  }
+}
